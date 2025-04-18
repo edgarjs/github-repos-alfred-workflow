@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>edgarjs.github-repos.workflow</string>
+    <key>category</key>
+    <string>Internet</string>
+    <key>connections</key>
+    <dict>
+      <key>311D982B-4464-4555-96B0-92D2EBDFE2B3</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>F3721E38-1A2A-4DC5-993C-82D229E068EE</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string/>
+          <key>vitoclose</key>
+          <false/>
+        </dict>
+      </array>
+      <key>350D1722-2AF9-4F07-B2BA-2715162F4DF7</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>28A1B5F1-4081-4F43-B145-2980BF8AF2F8</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string/>
+          <key>vitoclose</key>
+          <false/>
+        </dict>
+      </array>
+      <key>61596983-1F38-4909-AAF5-9AFE57716B94</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>C58F1173-91FD-42A0-AA82-720ED0901887</string>
+          <key>modifiers</key>
+          <integer>1048576</integer>
+          <key>modifiersubtext</key>
+          <string/>
+          <key>vitoclose</key>
+          <true/>
+        </dict>
+        <dict>
+          <key>destinationuid</key>
+          <string>4017283D-E4CC-4C74-B540-3CC491FF85CC</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string/>
+          <key>vitoclose</key>
+          <false/>
+        </dict>
+        <dict>
+          <key>destinationuid</key>
+          <string>E8DF7588-4700-485F-AC3F-8AFCA7CC05F1</string>
+          <key>modifiers</key>
+          <integer>524288</integer>
+          <key>modifiersubtext</key>
+          <string/>
+          <key>vitoclose</key>
+          <true/>
+        </dict>
+        <dict>
+          <key>destinationuid</key>
+          <string>350D1722-2AF9-4F07-B2BA-2715162F4DF7</string>
+          <key>modifiers</key>
+          <integer>655360</integer>
+          <key>modifiersubtext</key>
+          <string/>
+          <key>vitoclose</key>
+          <true/>
+        </dict>
+      </array>
+      <key>C58F1173-91FD-42A0-AA82-720ED0901887</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>4017283D-E4CC-4C74-B540-3CC491FF85CC</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string/>
+          <key>vitoclose</key>
+          <false/>
+        </dict>
+      </array>
+      <key>E8DF7588-4700-485F-AC3F-8AFCA7CC05F1</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>28A1B5F1-4081-4F43-B145-2980BF8AF2F8</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string/>
+          <key>vitoclose</key>
+          <false/>
+        </dict>
+      </array>
+      <key>F3721E38-1A2A-4DC5-993C-82D229E068EE</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>DB3D2F46-1FB8-4ADA-8E08-71DB22BF46FB</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string/>
+          <key>vitoclose</key>
+          <false/>
+        </dict>
+      </array>
+    </dict>
+    <key>createdby</key>
+    <string>edgarjs</string>
+    <key>description</key>
+    <string>Filter and open GitHub repositories from Alfred</string>
+    <key>disabled</key>
+    <false/>
+    <key>name</key>
+    <string>GitHub Repos Alfred Workflow</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false/>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true/>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>0</integer>
+          <key>escaping</key>
+          <integer>0</integer>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true/>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string/>
+          <key>script</key>
+          <string/>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string>pulls.sh</string>
+          <key>subtext</key>
+          <string/>
+          <key>title</key>
+          <string/>
+          <key>type</key>
+          <integer>8</integer>
+          <key>withspace</key>
+          <false/>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>C58F1173-91FD-42A0-AA82-720ED0901887</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false/>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true/>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>0</integer>
+          <key>keyword</key>
+          <string>gh</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true/>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string/>
+          <key>script</key>
+          <string/>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string>gh.sh</string>
+          <key>subtext</key>
+          <string>e.g. octocat/hello-world</string>
+          <key>title</key>
+          <string>Search for a repository's name</string>
+          <key>type</key>
+          <integer>8</integer>
+          <key>withspace</key>
+          <true/>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>61596983-1F38-4909-AAF5-9AFE57716B94</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>browser</key>
+          <string/>
+          <key>spaces</key>
+          <string/>
+          <key>url</key>
+          <string/>
+          <key>utf8</key>
+          <true/>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.openurl</string>
+        <key>uid</key>
+        <string>4017283D-E4CC-4C74-B540-3CC491FF85CC</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>autopaste</key>
+          <false/>
+          <key>clipboardtext</key>
+          <string>git clone {query}</string>
+          <key>ignoredynamicplaceholders</key>
+          <false/>
+          <key>transient</key>
+          <false/>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.clipboard</string>
+        <key>uid</key>
+        <string>E8DF7588-4700-485F-AC3F-8AFCA7CC05F1</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>lastpathcomponent</key>
+          <false/>
+          <key>onlyshowifquerypopulated</key>
+          <false/>
+          <key>removeextension</key>
+          <false/>
+          <key>text</key>
+          <string>git clone {query}</string>
+          <key>title</key>
+          <string>Clone command copied to clipboard</string>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.notification</string>
+        <key>uid</key>
+        <string>28A1B5F1-4081-4F43-B145-2980BF8AF2F8</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>autopaste</key>
+          <false/>
+          <key>clipboardtext</key>
+          <string>git clone {query}</string>
+          <key>ignoredynamicplaceholders</key>
+          <false/>
+          <key>transient</key>
+          <false/>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.clipboard</string>
+        <key>uid</key>
+        <string>350D1722-2AF9-4F07-B2BA-2715162F4DF7</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>lastpathcomponent</key>
+          <false/>
+          <key>onlyshowifquerypopulated</key>
+          <false/>
+          <key>removeextension</key>
+          <false/>
+          <key>text</key>
+          <string>The cache directory at {query} has been removed. Your next queries will trigger new requests to the GitHub API.</string>
+          <key>title</key>
+          <string>Cache cleared!</string>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.notification</string>
+        <key>uid</key>
+        <string>DB3D2F46-1FB8-4ADA-8E08-71DB22BF46FB</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>argumenttype</key>
+          <integer>2</integer>
+          <key>keyword</key>
+          <string>ghclear</string>
+          <key>subtext</key>
+          <string>Remove the cache directory for the gh CLI</string>
+          <key>text</key>
+          <string>Clear cache</string>
+          <key>withspace</key>
+          <false/>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.keyword</string>
+        <key>uid</key>
+        <string>311D982B-4464-4555-96B0-92D2EBDFE2B3</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false/>
+          <key>escaping</key>
+          <integer>0</integer>
+          <key>script</key>
+          <string/>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string>clear-cache.sh</string>
+          <key>type</key>
+          <integer>8</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>F3721E38-1A2A-4DC5-993C-82D229E068EE</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string># GitHub Repos Alfred Workflow
+
+This [Alfred](https://www.alfredapp.com/) workflow lets you search for GitHub
+repositories right from the Alfred bar.
+
+It uses the [GitHub CLI](https://github.com/cli/cli) under the hood.
+
+## Requirements
+
+Install the GitHub CLI:
+
+```bash
+# Run this in the terminal:
+brew install gh
+```
+
+&gt; **Note**:
+&gt; The command above assume you use [Homebrew](https://brew.sh) as your package manager.
+
+## Authentication
+
+Authentication is handled by the GitHub CLI, so just follow the instructions when running:
+
+```bash
+# Run this in the terminal:
+gh auth login
+```
+
+## Usage
+
+There's a single keyword that triggers the workflow: `gh`
+
+Then you can start typing the name of the repository you're looking for.
+It will first try to search within your user's repositories. And if no result
+is found, then it'll search in all public repositories.
+
+```
+gh octocat/hello-world
+```
+
+![Example of gh command](gh.png)
+
+When an item is highlighted, you can press Enter to open the repository's page,
+or press any of the following modifiers keys for other options:
+
+### Hold `Ctrl ⌃` for repository actions page
+
+Press Enter while holding down the `Ctrl` key to open the repository's actions page.
+
+### Hold `Cmd ⌘` to see Pull Requests
+
+Press Enter while holding down the `Cmd` key to list the repository's open PR's.
+
+### `Option ⌥` modifier
+
+Press Enter while holding down the `Option` key to copy the clone command with the repository's SSH URL.
+
+### `Shift+Option ⇧+⌥` modifier
+
+Press Enter while holding down the `Shift+Option` keys to copy the clone command with the repository's clone URL.
+
+## Configuration
+
+### API Response Caching
+
+You can configure the cache duration passed to the GitHub CLI, by setting the following environment variables.
+
+| Environment Variable | Description                              | Default           |
+| -------------------- | ---------------------------------------- | ----------------- |
+| `CACHE_PULLS`        | Cache duration for PR's API call         | `10m`             |
+| `CACHE_SEARCH_REPOS` | Cache duration for repos search API call | `24h`             |
+| `CACHE_USER_REPOS`   | Cache duration for user repos API call   | `72h`             |
+| `CACHE_DIR`          | Cache directory for the the `gh` CLI     | `$HOME/.cache/gh` |
+
+&gt; ⚠️ **Caution** ⚠️
+&gt;
+&gt; If you don't see your recently created repository in the results, it may be the cache duration mentioned above.
+&gt;
+&gt; Also make sure to use absolute paths if you need to customize the default.
+&gt; Like `/Users/juan/cache` instead `$HOME/cache`
+
+To clear the cache and force a new request to the GitHub API, type this in Alfred:
+
+```
+ghclear
+```
+
+### Enterprise Host
+
+If you're using an Enterprise account, you can set the following environment variable to your needs:
+
+| Environment Variable | Description                       | Default      |
+| -------------------- | --------------------------------- | ------------ |
+| `API_HOST`           | Hostname to use for the API calls | `github.com` |
+
+## Contributing
+
+You can submit your bug reports or feature requests at:
+https://github.com/edgarjs/github-repos-alfred-workflow/issues
+
+## License
+
+This project is published under the [MIT License](LICENSE.md).</string>
+    <key>uidata</key>
+    <dict>
+      <key>28A1B5F1-4081-4F43-B145-2980BF8AF2F8</key>
+      <dict>
+        <key>xpos</key>
+        <integer>830</integer>
+        <key>ypos</key>
+        <integer>505</integer>
+      </dict>
+      <key>311D982B-4464-4555-96B0-92D2EBDFE2B3</key>
+      <dict>
+        <key>xpos</key>
+        <integer>60</integer>
+        <key>ypos</key>
+        <integer>770</integer>
+      </dict>
+      <key>350D1722-2AF9-4F07-B2BA-2715162F4DF7</key>
+      <dict>
+        <key>xpos</key>
+        <integer>525</integer>
+        <key>ypos</key>
+        <integer>590</integer>
+      </dict>
+      <key>4017283D-E4CC-4C74-B540-3CC491FF85CC</key>
+      <dict>
+        <key>xpos</key>
+        <integer>830</integer>
+        <key>ypos</key>
+        <integer>250</integer>
+      </dict>
+      <key>61596983-1F38-4909-AAF5-9AFE57716B94</key>
+      <dict>
+        <key>xpos</key>
+        <integer>60</integer>
+        <key>ypos</key>
+        <integer>250</integer>
+      </dict>
+      <key>C58F1173-91FD-42A0-AA82-720ED0901887</key>
+      <dict>
+        <key>xpos</key>
+        <integer>525</integer>
+        <key>ypos</key>
+        <integer>85</integer>
+      </dict>
+      <key>DB3D2F46-1FB8-4ADA-8E08-71DB22BF46FB</key>
+      <dict>
+        <key>xpos</key>
+        <integer>830</integer>
+        <key>ypos</key>
+        <integer>770</integer>
+      </dict>
+      <key>E8DF7588-4700-485F-AC3F-8AFCA7CC05F1</key>
+      <dict>
+        <key>xpos</key>
+        <integer>525</integer>
+        <key>ypos</key>
+        <integer>420</integer>
+      </dict>
+      <key>F3721E38-1A2A-4DC5-993C-82D229E068EE</key>
+      <dict>
+        <key>xpos</key>
+        <integer>525</integer>
+        <key>ypos</key>
+        <integer>770</integer>
+      </dict>
+    </dict>
+    <key>variables</key>
+    <dict>
+      <key>API_HOST</key>
+      <string>github.com</string>
+      <key>CACHE_PULLS</key>
+      <string>10m</string>
+      <key>CACHE_SEARCH_REPOS</key>
+      <string>24h</string>
+      <key>CACHE_USER_REPOS</key>
+      <string>72h</string>
+    </dict>
+    <key>variablesdontexport</key>
+    <array/>
+    <key>version</key>
+    <string>3.1.3</string>
+    <key>webaddress</key>
+    <string>https://github.com/edgarjs/github-repos-alfred-workflow</string>
+  </dict>
+</plist>

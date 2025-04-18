@@ -1,90 +1,110 @@
-# GitHub Repos workflow for Alfred
+# GitHub Repos Alfred Workflow
 
-This is a custom workflow for the [Alfred app][alfred-app] that lets you search and open a GitHub repository via the GitHub Search API.
+This [Alfred](https://www.alfredapp.com/) workflow lets you search for GitHub
+repositories right from the Alfred bar.
+
+It uses the [GitHub CLI](https://github.com/cli/cli) under the hood.
+
+## Requirements
+
+Install the GitHub CLI:
+
+```bash
+# Run this in the terminal:
+brew install gh
+```
+
+> 💡 **Note**:  
+> The command above assume you use [Homebrew](https://brew.sh) as your package manager.
 
 ## Authentication
 
-You'll need to authenticate with a personal access token that you can generate in the [GitHub developer settings page][personal-access-token] or by running the `gh-token` command in Alfred.
+Authentication is handled by the GitHub CLI, so just follow the instructions when running:
 
-After you have copied your personal access token, run `gh-login <your-token>` to set your personal access token.
+```bash
+# Run this in the terminal:
+gh auth login
+```
+
+## Installation
+
+You can download the workflow from the [releases page](https://github.com/edgarjs/github-repos-alfred-workflow/releases)
+or from [Packal](https://www.packal.org/workflow/github-repos).
+
+Double click on the `.alfredworkflow` file and follow the instructions.
 
 ## Usage
 
-Here's the list of available commands.
+There's a single keyword that triggers the workflow: `gh`
 
-### Global Search: `gh <query>`
-
-![gh hello-world](docs/gh-hello-world.png)
-
-The example above will search for repositories with the string "hello-world" in their name. Internally this uses the [GitHub Search syntax][github-search], so you can use modifiers like:
-
-![gh hello-world stars:>1000](docs/gh-hello-world-stars-1000.png)
-
-This will search only in repositories that have more than 1000 stars.
-
-> Please note that this command only searches in the repository name. This means that your query will be appended with the `in:name` modifier. So when you type in `hello-world`, the final search query sent will be: "hello-world in:name".
-
-### Search your repositories: `repo [query]`
-
-This command works the same as the previous one (`gh <query>`) but it limits the search to your own repositories.
-
-> This includes repositories from your organizations as well.
-
-### Search Pull Requests: `pr [query]`
-
-This command searches within the Pull Requests that you're involved in.
-
-If you want to limit the search to be under your organisations, please remove `PR_ALL_INVOLVE_ME` environment variable
-
-### Open notifications: `gh-notifications`
-
-This command just opens your [GitHub notification][notifications-page] page.
-
-## Config Cache TTL
-
-You can customise the TTL for the internal caches of Repos/Organisations/PullRequests by seting the following
-environment variables. (all in seconds)
+Then you can start typing the name of the repository you're looking for.
+It will first try to search within your user's repositories. And if no result
+is found, then it'll search in all public repositories.
 
 ```
-> CACHE_TTL_SEC_ORG  default: 86400
-> CACHE_TTL_SEC_PR  default: 300
-> CACHE_TTL_SEC_REPO default: 86400
+gh octocat/hello-world
 ```
 
+![Example of gh command](gh.png)
 
-## Configuring host for Enterprise
+When an item is highlighted, you can press Enter to open the repository's page,
+or press any of the following modifiers keys for other options:
 
-If you're using an Enterprise account, you can call the `gh-host <host>` command.
+### Hold `Ctrl ⌃` for repository actions page
 
----
+Press Enter while holding down the `Ctrl` key to open the repository's actions page.
+
+### Hold `Cmd ⌘` to see Pull Requests
+
+Press Enter while holding down the `Cmd` key to list the repository's open PR's.
+
+### `Option ⌥` modifier
+
+Press Enter while holding down the `Option` key to copy the clone command with the repository's SSH URL.
+
+### `Shift+Option ⇧+⌥` modifier
+
+Press Enter while holding down the `Shift+Option` keys to copy the clone command with the repository's clone URL.
+
+## Configuration
+
+### API Response Caching
+
+You can configure the cache duration passed to the GitHub CLI, by setting the following environment variables.
+
+| Environment Variable | Description                              | Default           |
+| -------------------- | ---------------------------------------- | ----------------- |
+| `CACHE_PULLS`        | Cache duration for PR's API call         | `10m`             |
+| `CACHE_SEARCH_REPOS` | Cache duration for repos search API call | `24h`             |
+| `CACHE_USER_REPOS`   | Cache duration for user repos API call   | `72h`             |
+| `CACHE_DIR`          | Cache directory for the the `gh` CLI     | `$HOME/.cache/gh` |
+
+> ⚠️ **Caution** ⚠️
+>
+> If you don't see your recently created repository in the results, it may be the cache duration mentioned above.
+>
+> Also make sure to use absolute paths if you need to customize the default.
+> Like `/Users/juan/cache` instead `$HOME/cache`
+
+To clear the cache and force a new request to the GitHub API, type this in Alfred:
+
+```
+ghclear
+```
+
+### Enterprise Host
+
+If you're using an Enterprise account, you can set the following environment variable to your needs:
+
+| Environment Variable | Description                       | Default      |
+| -------------------- | --------------------------------- | ------------ |
+| `API_HOST`           | Hostname to use for the API calls | `github.com` |
 
 ## Contributing
 
 You can submit your bug reports or feature requests at:
-https://github.com/edgarjs/alfred-github-repos/issues
-
-If you want to submit a Pull Request, please follow these simple guides:
-
-1. Add a detailed description of what you're changing and why.
-2. Add necessary unit tests that cover your changes.
-3. Don't increase the version of the workflow in your changes.
-
-Here are some ideas for Pull Requests:
-
-- [ ] Make search faster
-- [ ] Search commits in a repository
-- [ ] Search projects in an organization
-- [ ] Improve icon graphics
+https://github.com/edgarjs/github-repos-alfred-workflow/issues
 
 ## License
 
 This project is published under the [MIT License](LICENSE.md).
-
-[alfred-app]: https://www.alfredapp.com/
-[github-search]: https://docs.github.com/en/free-pro-team@latest/github/searching-for-information-on-github/searching-on-github
-[download-packal]: https://www.packal.org/workflow/github-repos
-[download-releases]: https://github.com/edgarjs/alfred-github-repos/releases
-[personal-access-token]: https://github.com/settings/tokens/new?description=GitHub%20Repos%20Alfred%20workflow&scopes=repo
-[pulls-page]: https://github.com/pulls
-[notifications-page]: https://github.com/notifications
-[alfred-env-vars]: https://www.alfredapp.com/help/workflows/script-environment-variables/

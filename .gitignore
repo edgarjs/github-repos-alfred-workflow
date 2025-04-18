@@ -1,5 +1,2 @@
 *.alfredworkflow
 build/
-coverage/
-out/
-tmp/

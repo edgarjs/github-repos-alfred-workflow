@@ -1,0 +1,34 @@
+name: Build and release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build workflow artifact
+        run: bash build.sh
+
+      - name: Generate Changelog
+        run: git log $(git tag --sort=-creatordate | awk 'NR==2')..HEAD^1 --oneline --no-merges --no-decorate > CHANGELOG
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/github-repos.alfredworkflow
+          body_path: CHANGELOG
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
