@@ -28,8 +28,7 @@ gh auth login
 
 ## Installation
 
-You can download the workflow from the [releases page](https://github.com/edgarjs/github-repos-alfred-workflow/releases)
-or from [Packal](https://www.packal.org/workflow/github-repos).
+You can download the workflow from the [releases page](https://github.com/edgarjs/github-repos-alfred-workflow/releases).
 
 Double click on the `.alfredworkflow` file and follow the instructions.
 
