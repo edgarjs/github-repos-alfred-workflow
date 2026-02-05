@@ -49,7 +49,7 @@ repos=$(gh api /user/repos --method GET \
   --hostname "$API_HOST" \
   --cache "$CACHE_USER_REPOS" \
   --paginate \
-  --jq "[.[] | $item]" 2>"$err")
+  --jq "[.[] | select(.archived == false) | $item]" 2>"$err")
 gh_exit=$?
 err_msg=$(<"$err")
 rm -f "$err"
