@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source ./setup.sh
+source "$(dirname "$0")/setup.sh"
 
 query=$1
 item=$(
-  cat <<EOF
+  cat <<'EOF'
 {
   uid: .id,
   title: .full_name,
@@ -36,44 +36,79 @@ item=$(
 EOF
 )
 
-# Always fetch in parallel and merge results (user repos + search results if query present)
+empty_result='{"items":[]}'
 
-tmp_user=$(mktemp)
-tmp_search=$(mktemp)
-cleanup() { rm -f "$tmp_user" "$tmp_search"; }
-trap cleanup EXIT
+err=$(mktemp) || {
+  printf '%s' "$empty_result"
+  exit 0
+}
 
-# User repos (filtered locally with grep if query provided)
-(
-  gh api /user/repos --method GET \
-    -f sort=pushed \
-    --hostname "$API_HOST" \
-    --cache "$CACHE_USER_REPOS" \
-    --paginate \
-    --jq ".[] | $item" | { if [[ -n "$query" ]]; then grep -i "$query" || true; else cat; fi; } >"$tmp_user"
-) &
-pid_user=$!
+repos=$(gh api /user/repos --method GET \
+  -f sort=pushed \
+  -F per_page=100 \
+  --hostname "$API_HOST" \
+  --cache "$CACHE_USER_REPOS" \
+  --paginate \
+  --jq "[.[] | select(.archived == false) | $item]" 2>"$err")
+gh_exit=$?
+err_msg=$(<"$err")
+rm -f "$err"
 
-# Search endpoint (only if query provided, otherwise skip to save API calls)
+if [[ $gh_exit -ne 0 ]]; then
+  if [[ -n "$err_msg" ]]; then
+    printf '%s\n' "$err_msg" >&2
+  fi
+  printf '%s' "$empty_result"
+  exit 0
+fi
+
+# --paginate outputs one JSON array per page; merge them and optionally filter
 if [[ -n "$query" ]]; then
-  (
-    gh api /search/repositories --method GET \
+  # Use --arg to safely pass query into jq (no injection possible)
+  repos=$(printf '%s\n' "$repos" | jq -s --arg q "$query" \
+    '[add // [] | .[] | select(.title | ascii_downcase | contains($q | ascii_downcase))]') \
+    || repos="[]"
+else
+  repos=$(printf '%s\n' "$repos" | jq -s 'add // []') || repos="[]"
+fi
+
+# Check if we got results
+has_results=$(printf '%s' "$repos" | jq 'length > 0' 2>/dev/null)
+
+# Fall back to search if no local match and query is present
+if [[ "$has_results" != "true" && -n "$query" ]]; then
+  # Sanitize query: allowlist of safe characters only
+  safe_query=$(printf '%s' "$query" | tr -cd 'a-zA-Z0-9 ._-')
+
+  if [[ -n "$safe_query" ]]; then
+    err=$(mktemp) || {
+      printf '%s' "$empty_result"
+      exit 0
+    }
+
+    repos=$(gh api /search/repositories --method GET \
       --hostname "$API_HOST" \
-      -f q="$query in:name archived:false" \
+      -f q="$safe_query in:name archived:false" \
       -F per_page=9 \
       -f sort=pushed \
       --cache "$CACHE_SEARCH_REPOS" \
-      --jq ".items.[] | $item" >"$tmp_search"
-  ) &
-  pid_search=$!
+      --jq "[.items[] | $item]" 2>"$err")
+    gh_exit=$?
+    err_msg=$(<"$err")
+    rm -f "$err"
+
+    if [[ $gh_exit -ne 0 ]]; then
+      if [[ -n "$err_msg" ]]; then
+        printf '%s\n' "$err_msg" >&2
+      fi
+      repos="[]"
+    fi
+  fi
+
+  if [[ -z "$repos" ]]; then
+    repos="[]"
+  fi
 fi
 
-wait "$pid_user" 2>/dev/null || true
-if [[ -n "$pid_search" ]]; then
-  wait "$pid_search" 2>/dev/null || true
-fi
-
-# Combine, remove blanks, unique by uid (id) preserving first occurrence
-items_array=$(cat "$tmp_user" "$tmp_search" 2>/dev/null | awk 'NF' | jq -s 'unique_by(.uid)')
-
-echo -n "{\"items\":$items_array}"
+# Final output with jq fallback
+printf '%s' "$repos" | jq -c '{items: .}' 2>/dev/null || printf '%s' "$empty_result"
