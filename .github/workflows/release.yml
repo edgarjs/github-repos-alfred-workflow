@@ -3,7 +3,7 @@ name: Build and release
 on:
   push:
     tags:
-      - '*.*.*'
+      - '[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   release:
@@ -22,7 +22,13 @@ jobs:
         run: bash build.sh
 
       - name: Generate Changelog
-        run: git log $(git tag --sort=-creatordate | awk 'NR==2')..HEAD^1 --oneline --no-merges --no-decorate > CHANGELOG
+        run: |
+          prev_tag=$(git tag --sort=-creatordate | awk 'NR==2')
+          if [[ -n "$prev_tag" ]]; then
+            git log "${prev_tag}..HEAD" --oneline --no-merges --no-decorate > CHANGELOG
+          else
+            git log HEAD --oneline --no-merges --no-decorate > CHANGELOG
+          fi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

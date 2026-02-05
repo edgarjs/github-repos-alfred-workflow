@@ -15,7 +15,7 @@ brew install gh
 ```
 
 > 💡 **Note**:  
-> The command above assume you use [Homebrew](https://brew.sh) as your package manager.
+> The command above assumes you use [Homebrew](https://brew.sh) as your package manager.
 
 ## Authentication
 
@@ -34,11 +34,11 @@ Double click on the `.alfredworkflow` file and follow the instructions.
 
 ## Usage
 
-There's a single keyword that triggers the workflow: `gh`
+The main keyword that triggers the workflow is: `gh`
 
 Then you can start typing the name of the repository you're looking for.
-It will first try to search within your user's repositories. And if no result
-is found, then it'll search in all public repositories.
+It will first fetch your repositories and filter them locally by name. If no
+match is found, it will search GitHub repositories.
 
 ```
 gh octocat/hello-world
@@ -47,7 +47,7 @@ gh octocat/hello-world
 ![Example of gh command](gh.png)
 
 When an item is highlighted, you can press Enter to open the repository's page,
-or press any of the following modifiers keys for other options:
+or press any of the following modifier keys for other options:
 
 ### Hold `Ctrl ⌃` for repository actions page
 
@@ -55,15 +55,15 @@ Press Enter while holding down the `Ctrl` key to open the repository's actions p
 
 ### Hold `Cmd ⌘` to see Pull Requests
 
-Press Enter while holding down the `Cmd` key to list the repository's open PR's.
+Press Enter while holding down the `Cmd` key to list the repository's open PRs.
 
-### `Option ⌥` modifier
+### Hold `Option ⌥` to copy SSH clone command
 
 Press Enter while holding down the `Option` key to copy the clone command with the repository's SSH URL.
 
-### `Shift+Option ⇧+⌥` modifier
+### Hold `Shift+Option ⇧+⌥` to copy HTTPS clone command
 
-Press Enter while holding down the `Shift+Option` keys to copy the clone command with the repository's clone URL.
+Press Enter while holding down the `Shift+Option` keys to copy the clone command with the repository's HTTPS URL.
 
 ## Configuration
 
@@ -73,17 +73,17 @@ You can configure the cache duration passed to the GitHub CLI, by setting the fo
 
 | Environment Variable | Description                              | Default           |
 | -------------------- | ---------------------------------------- | ----------------- |
-| `CACHE_PULLS`        | Cache duration for PR's API call         | `10m`             |
+| `CACHE_PULLS`        | Cache duration for PRs API call          | `10m`             |
 | `CACHE_SEARCH_REPOS` | Cache duration for repos search API call | `24h`             |
 | `CACHE_USER_REPOS`   | Cache duration for user repos API call   | `72h`             |
-| `CACHE_DIR`          | Cache directory for the the `gh` CLI     | `$HOME/.cache/gh` |
+| `CACHE_DIR`          | Directory removed by `ghclear` command   | `$HOME/.cache/gh` |
 
 > ⚠️ **Caution** ⚠️
 >
-> If you don't see your recently created repository in the results, it may be the cache duration mentioned above.
+> If you don't see your recently created repository in the results, it may be due to the cache duration mentioned above.
 >
 > Also make sure to use absolute paths if you need to customize the default.
-> Like `/Users/juan/cache` instead `$HOME/cache`
+> Like `/Users/juan/cache` instead of `$HOME/cache`
 
 To clear the cache and force a new request to the GitHub API, type this in Alfred:
 

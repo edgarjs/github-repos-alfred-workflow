@@ -1,11 +1,18 @@
 #!/bin/bash
 
-source ./setup.sh
+source "$(dirname "$0")/setup.sh"
 
 repo=$1
+empty_result='{"items":[]}'
+
+if [[ -z "$repo" || ! "$repo" =~ ^[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+$ ]]; then
+  printf '%s' "$empty_result"
+  exit 0
+fi
+
 repo_url="https://$API_HOST/$repo"
 item=$(
-  cat <<EOF
+  cat <<'EOF'
 {
   title: "PR #\(.number): \(.title)",
   subtitle: "Open \(.html_url)",
@@ -17,24 +24,32 @@ item=$(
 EOF
 )
 
+err=$(mktemp) || {
+  printf '%s' "$empty_result"
+  exit 0
+}
+
 pulls=$(gh api "/repos/$repo/pulls" --method GET \
-  -f per_page=9 \
+  -F per_page=9 \
   --hostname "$API_HOST" \
   --cache "$CACHE_PULLS" \
-  --jq ".[] | $item")
+  --jq "[.[] | $item]" 2>"$err")
+gh_exit=$?
+err_msg=$(<"$err")
+rm -f "$err"
 
-items=$(echo -n "$pulls" | tr '\n', ',' | sed 's/,$//')
+if [[ $gh_exit -ne 0 ]]; then
+  if [[ -n "$err_msg" ]]; then
+    printf '%s\n' "$err_msg" >&2
+  fi
+  pulls="[]"
+fi
 
-cat <<EOF
-{
-  "items": [
-    {
-      "title": "Open pull requests page",
-      "subtitle": "Open $repo_url/pulls",
-      "arg": "$repo_url/pulls"
-    }
-    $(if [[ -n "$items" ]]; then echo ','; fi)
-    $items
-  ]
-}
-EOF
+if [[ -z "$pulls" ]]; then
+  pulls="[]"
+fi
+
+# Build final JSON: prepend the "Open pull requests page" item, then append PR items
+printf '%s' "$pulls" | jq -c --arg url "$repo_url/pulls" \
+  '{items: ([{title: "Open pull requests page", subtitle: ("Open " + $url), arg: $url}] + .)}' \
+  2>/dev/null || printf '%s' "$empty_result"
